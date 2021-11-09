@@ -1,0 +1,63 @@
+    string smallestNumber(int S, int D){
+        int count;
+       if(S%9==0)
+       count = S/9;
+       else
+      count = (S/9) + 1;
+       if(count==D)
+       {
+           int q,r,zeroes;
+            string result="";
+        q= S/9;
+        r= S%9;
+        while(q>0)
+        {
+            result += "9";
+            q--;
+        }
+        string a = to_string(r);
+        
+        result += a;
+         string ans ="";
+        
+        for(int i=(result.size())-1;i>=0;i--)
+        ans += result[i];
+           return ans;
+       }
+        else
+        {
+        S--;
+        int q,r,zeroes;
+        q= S/9;
+        r= S%9;
+        string result="";
+        int q1=q;
+        while(q>0)
+        {
+            result += "9";
+            q--;
+        }
+        string a = to_string(r);
+        
+        result += a;
+        
+        zeroes = D-(2+q1);
+        if(zeroes<0)
+        return "-1";
+        while(zeroes>0)
+        {
+            result += "0";
+            zeroes--;
+        }
+        result += "1";
+        
+        string ans ="";
+        
+        for(int i=(result.size())-1;i>=0;i--)
+        ans += result[i];
+         return ans;
+        }
+        
+   
+        
+    }

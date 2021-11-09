@@ -1,0 +1,58 @@
+ int pageFaults(int N, int C, int pages[]){
+        // code here
+        int ans=0;
+        int freq;
+        vector<int>::iterator replacement_element;
+        unordered_map<int ,vector<int>::iterator> dp;
+        vector<int> v;
+        int capacity  = 0;
+        
+        for(int i=0;i<4;i++)
+        {
+            // If already present in cache
+            if(dp.find(pages[i])!=dp.end())
+            {
+             // do nothing
+            }
+            else
+            {
+                // If cache ain't full yet
+                
+                if(capacity<C)
+                {
+                    ans++;
+                    v.push_back(pages[i]);
+                    vector<int>::iterator ptr = v.end();
+                    ptr--;
+                    dp[pages[i]]=ptr;
+                    capacity++;
+                }
+                
+                else
+                
+                {
+                    
+                 // LRU logic goes here
+                 
+                      
+                     // Element which was least recently used is identified
+                     
+                         replacement_element  = dp[v[0]];
+                    
+                    
+                    // That unlucky guy gets kicked out !!
+                    //cout<<replacement_element<<" ";
+                    v.erase(replacement_element);
+             v.push_back(pages[i]);
+             vector<int>::iterator ptr = v.end();
+             ptr--;
+             dp[pages[i]]=ptr;
+             ans++;
+                }
+            }
+        }
+       // cout<<endl;
+       
+      
+        return ans;
+    }

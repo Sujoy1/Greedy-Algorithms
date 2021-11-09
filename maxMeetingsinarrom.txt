@@ -1,0 +1,66 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct meetings{
+    int start;
+    int end;
+};
+
+bool f( struct meetings a, struct meetings b)
+{
+    if(a.end!=b.end)
+    return (a.end<b.end);
+    if(a.end==b.end)
+    return (a.start<b.start);
+}
+
+void maxMeeting(int s[],int f[],int n)
+{
+    int i,j;
+    struct meetings arr[n];
+    vector<int> v;
+    
+    for(i=0;i<n;i++)
+    {
+        arr[i].start=s[i];
+        arr[i].end=f[i];
+    }
+    n = sizeof(arr)/sizeof(arr[0]);
+    
+    sort(arr,arr+n,f);
+    
+    i=0;
+    for(j=1;j<n;j++)
+    {
+        if(arr[i].end<arr[j].start)
+        {
+            v.push_back(i+1);
+            i=j;
+        }
+    }
+    
+    v.push_back(i+1);
+    
+    for(auto ele:v)
+    cout<<ele<<" ";
+}
+
+
+int main()
+{
+    // Starting time
+    int s[] = { 1, 3, 0, 5, 8, 5 };
+     
+    // Finish time
+    int f[] = { 2, 4, 6, 7, 9, 9 };
+     
+    // Number of meetings.
+    int n = sizeof(s) / sizeof(s[0]);
+ 
+ 
+ 
+   // Function call
+    maxMeeting(s, f, n);
+ 
+    return 0;
+}

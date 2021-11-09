@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+struct stock{
+    int val;
+    int day;
+};
+
+bool f(struct stock a , struct stock b )
+{
+    return (a.val<b.val);
+}
+
+int main() {
+	
+	int ans,i,n,k,tobe,v;
+	
+	cin>>n;
+	 
+	struct stock a[n];
+	
+	for( i=0;i<n;i++)
+	{
+	    cin>>v;
+	    a[i].val=v;
+	    a[i].day = i+1;
+	    
+	}
+	cin>>k;
+	
+	sort(a,a+n,f);
+	
+	ans=0;
+	
+	for(i=0;i<n;i++)
+	{
+	    if(k<=0)
+	    {
+	        break;
+	    }
+	    else
+	    {
+	        tobe = k/(a[i].val);
+	        if(tobe>=a[i].day)
+	        {
+	            cout<<a[i].day<<" "<<a[i].day<<endl;
+	            ans += a[i].day;
+	            k -= (a[i].day)*(a[i].val);
+	        }
+	        else
+	        {
+	           cout<<a[i].day<<" "<<tobe<<endl; 
+	           ans += tobe ;
+	           k -= (tobe)*(a[i].val);
+	        }
+	        
+	    }
+	    
+	}
+	cout<<endl;
+	cout<<ans;
+	
+	return 0;
+}

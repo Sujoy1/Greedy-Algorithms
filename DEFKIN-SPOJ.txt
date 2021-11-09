@@ -1,0 +1,48 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+  	
+int t,n,m,p,a,b,init,diff ,maxdiff1,maxdiff2,product;
+
+cin>>t;
+while(t--)
+{
+    cin>>n>>m>>p;
+   set<int> rows;
+   set<int> columns ;
+   
+   
+    for(int i=1;i<=p;i++)
+    {
+        cin>>a>>b;
+       rows.insert(a);
+       columns.insert(b);
+    }
+    init = 0;
+    maxdiff1 =-1;
+    for(auto ele : rows)
+    {
+        diff = ele -init;
+        diff--;
+        if(diff>maxdiff1)
+        maxdiff1=diff;
+        init = ele;
+    }
+    maxdiff1 = max(maxdiff1,n-init);
+     init = 0;
+    maxdiff2 =-1;
+    for(auto ele : columns)
+    {
+        diff = ele -init;
+        diff--;
+        if(diff>maxdiff2)
+        maxdiff2=diff;
+        init = ele;
+    }
+    maxdiff2 = max(maxdiff2,m-init);
+    product  =maxdiff2*maxdiff1;
+    cout<<product<<endl;
+}
+
+}

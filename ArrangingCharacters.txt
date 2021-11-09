@@ -1,0 +1,106 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+
+int main() {
+	//code
+	int t;
+	cin>>t;
+	while(t--)
+	{
+	    string s;
+	    cin>>s;
+	    unordered_map<char,int> dp;
+	    int len  = s.size();
+	    
+	    vector<int> v;
+	    
+	    for(int i=0;i<len;i++)
+	    {
+	        if(dp.find(s[i])==dp.end())
+	        dp[s[i]]=1;
+	        else
+	        dp[s[i]]++;
+	    }
+	    
+	    for(auto ele : dp)
+	    {
+	        v.push_back(ele.second);
+		}
+		    
+		    sort(v.begin(),v.end());
+		    
+		    int i=0,j=1,n=v.size();
+		    
+		    while(i<n&&j<n)
+		    {
+		        if(v[i]==v[j])
+		        {
+		            
+		            while(i<n)
+		            {
+		                if(v[i]!=0&&i!=j)
+		                {
+		                    break;
+		                }
+		                i++;
+		                    
+		            }
+		            while(j<n)
+		            {
+		                if(v[j]!=0&&i!=j)
+		                {
+		                    break;
+		                }
+		                   j++; 
+		            }
+		          
+		        }
+		        else if(v[i]<v[j])
+		        {
+		            v[i]=0;
+		            v[j] -= v[i];
+		            while(i<n)
+		            {
+		                if(v[i]!=0&&i!=j)
+		                {
+		                    break;
+		                }
+		                i++;
+		                    
+		            }
+		        }
+		        else
+		        {
+		            v[j]=0;
+		            v[i] -= v[j];
+		            while(i<n)
+		            {
+		                if(v[i]!=0&&i!=j)
+		                {
+		                    break;
+		                }
+		                i++;
+		                    
+		            }
+		        }
+		    }
+		    int f=0;
+		    
+		    for(int i=0;i<n;i++)
+		    {
+		        if(v[i]!=0)
+		        {
+		            cout<<0<<endl;
+		            f=1;
+		            break;
+		            
+		        }
+		    }
+		    if(f==0)
+		    cout<<1<<endl;
+	    
+	    
+	}
+	return 0;
+}

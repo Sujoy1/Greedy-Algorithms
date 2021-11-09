@@ -1,0 +1,147 @@
+#include bitsstdc++.h
+using namespace std;
+
+int main()
+{
+    int num, temp;
+    
+     Stores the burst time for the current Process
+    int execution_time;
+    
+    int mat[3][3]; 
+    
+     to store corresponding Process IDs and their burst time
+    unordered_mapint,int dp;
+    
+     to store corresponding Process IDs and their arrival time
+    unordered_mapint,int mp;
+    
+     to store corresponding Process IDs and their waiting time
+    unordered_mapint,int wp;
+    
+     to store corresponding Process IDs and their Turn around time
+    unordered_mapint,int tp;
+    
+     To maintain  a list of process that are yet not fully executed
+    setint s;
+    
+     To maintain  a list of process that are  fully executed
+    setint finished;
+    
+   
+    cinnum;
+     
+   
+    for(int i=0; inum; i++)
+    {
+        
+        cinmat[i][0];
+        
+        cinmat[i][1];
+      
+        cinmat[i][2];
+        s.insert(mat[i][0]);
+        dp[mat[i][0]]=mat[i][2];
+        mp[mat[i][0]]=mat[i][1];
+        
+    }
+     
+    coutBefore Arrange...n;
+   
+    for(int i=0; inum; i++)
+    {
+        coutmat[i][0]ttmat[i][1]ttmat[i][2]n;
+    }
+     
+     SJF schdeuling algorithm 
+    
+    
+      Ready queue  Maintains a ordered list of Process that have already arrived in RAM
+    queueint ready;
+    
+     Signifies whether CPU is busy or IDLE
+    int running=0;
+    
+     Time variable assumed to increase by 1 unit on each itertion
+    int Time =0;
+    
+    Stores current Process ID
+    int new_process;
+    
+     CPU is turned on , till all processes aren't executed
+    while(true)
+    {
+         When a process has arrived , push it in order in the ready queue
+        
+        for(int i=0;inum;i++)
+        {
+            if(mat[i][1]==Time&&finished.find(mat[i][1])==finished.end())
+            ready.push(mat[i][0]);
+        }
+        
+         when a Process has been fully executed , remove it from the set . Mark CPU to be IDLE
+        
+        if(execution_time==0&&running==1)
+        {
+            running=0;
+            
+                figure out Turn around Time
+           
+            int tt = Time  - mp[new_process];
+            tp[new_process] = tt;
+            
+           figure out Waiting Time
+            int wt = tp[new_process] -dp[new_process];
+            wp[new_process] = wt;
+            
+            s.erase(s.find(new_process));
+            
+            finished.insert(new_process);
+            
+             
+        }
+        
+         CPU should never be IDLE . Assign a new Process to CPU
+        
+        if(running==0)
+        {
+            if(!ready.empty())
+            {
+            new_process = ready.front();
+            ready.pop();
+            running=1;
+            
+             new execution_time will be equal to burst time since process is non-preamtive
+            execution_time =  dp[new_process];
+            
+           execution_time--;
+            cout'a'' 'Timeendl;
+            }
+        }
+         If a process is currently under execution , execute it..
+        else
+        {
+            cout'b'' 'Timeendl;
+            execution_time--;
+        }
+        
+         If all Processes have been executed , then we can terminate
+        
+        if(s.size()==0)
+        {
+             all Process have been executed
+            break;
+        }
+       coutnew_process execution_time Timeendl;
+        Time++;
+        
+    }
+     
+    
+    coutFinal Result...n;
+    coutProcess IDtArrival TimetBurst TimetWaiting TimetTurnaround Timen;
+    for(int i=0; inum; i++)
+    {
+        coutmat[i][0]ttmat[i][1]ttmat[i][2]ttwp[mat[i][0]]tttp[mat[i][0]]n;
+    }
+}

@@ -1,0 +1,140 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+struct edge{
+    long long  int val;
+    long long  int pos;
+    bool flag;
+};
+ 
+bool f(struct edge a, struct edge b)
+{
+    return (a.val>b.val);
+}
+ 
+long long int minimumCostOfBreaking(long long  int x[],long long  int y[],long long  int m,long long  int n)
+{
+    long long int i,j,k;
+    long long int pieces;
+    struct edge col[m];
+     struct edge row[n];
+     
+     
+     // for sorting acc to weights
+     
+     for( i=0;i<m;i++)
+     {
+         col[i].val = x[i];
+         col[i].pos = i;
+        col[i].flag = false;
+     }
+     
+     for( i=0;i<n;i++)
+     {
+        row[i].val = y[i];
+         row[i].pos = i;
+        row[i].flag = false;
+     }
+     
+     sort(col,col+m,f);
+     sort(row,row+n,f);
+     
+     i=0;
+     j=0;
+     
+     long long int cost =0 ;
+     
+     while(i<m&&j<n)
+     {
+         if(col[i].val>row[j].val)
+         {
+             col[i].flag= true ;
+             
+             
+             // Cut via column;
+             pieces=1;
+             for(k=0;k<n;k++)
+             {
+                 if(row[k].flag==true)
+                 pieces++;
+             }
+             cost += pieces*(col[i].val);
+             i++;
+         }
+         else
+         {
+             row[j].flag= true ;
+             
+             // Cut via row;
+             pieces=1;
+             for(k=0;k<m;k++)
+             {
+                 if(col[k].flag==true)
+                 pieces++;
+             }
+             cost += pieces*(row[j].val);
+             j++;
+         }
+     }
+     
+     // Cut left over rows
+     
+     while(j<n)
+     {
+          row[j].flag= true ;
+          
+             
+             // Cut via row;
+              pieces=1;
+             for(k=0;k<m;k++)
+             {
+                 if(col[k].flag==true)
+                 pieces++;
+             }
+             cost += pieces*(row[j].val);
+             j++;
+     }
+     
+     // Cut left over cols
+     
+     while(i<m)
+     {
+         col[i].flag= true ;
+          
+             
+             // Cut via column;
+             pieces=1;
+             for(k=0;k<n;k++)
+             {
+                 if(row[k].flag==true)
+                 pieces++;
+             }
+             cost += pieces*(col[i].val);
+             i++;
+     }
+     
+     return cost;
+     
+     
+     
+}
+ 
+int main()
+{
+    long long int t,m,n;
+    
+    cin>>t;
+    while(t--)
+    {
+    cin>>m>>n;
+    long long  int X[m-1];
+    long long  int Y[n-1];
+    for(long long  int i=0;i<(m-1);i++)
+    cin>>X[i];
+    for(long long  int i=0;i<(n-1);i++)
+    cin>>Y[i];
+    
+    cout << minimumCostOfBreaking(X, Y, m-1, n-1)<<endl;
+    }
+    return 0;
+} 

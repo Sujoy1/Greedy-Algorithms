@@ -1,0 +1,63 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+bool f(pair<int,int> p,pair<int,int> q)
+{
+    if(p.second<q.second)
+    return true;
+    else if(p.second==q.second)
+    return (p.first<=q.first);
+    else
+    return false;
+    
+}
+int maxStop(int m ,int n ,int arr[][3])
+{
+    int sum=0;
+    
+    vector<pair<int,int>> a[3];   
+   /*
+    int i,j,k;
+    for(i=0;i<n;i++)
+    {
+        a[arr[i][2]].push_back(make_pair(arr[i][0],arr[i][1]));
+    }
+    for(i=1;i<=m;i++)
+      sort(a[i].begin(),a[i].end(),f);
+    
+    
+    for(i=0;i<m;i++)
+    {
+       int count=1;
+       k=0,j=1;
+       
+       while(j<a[i].size())
+       {
+           if(a[i][k].second<=a[i][j].first)
+           {
+               count++;
+               k=j;
+               
+           }
+           j++;
+       }
+       
+       sum += count;
+    }
+    */
+    return sum;   
+    
+}
+
+int main()
+{
+    int n=5 , m=2;
+    int arr[m][3] = { 1000, 1030, 1,
+                      1010, 1020, 1,
+                      1025, 1040, 1,
+                      1130, 1145, 2,
+                      1130, 1140, 2 };
+   cout << "Maximum Stopped Trains = "
+         << maxStop(m,n,arr);
+    return 0;
+}

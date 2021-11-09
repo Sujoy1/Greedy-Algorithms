@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int MaxSumDifference(int a[],int n)
+{
+    sort(a,a+n);
+    
+    int sum=0,i=0,j=n-1,f=0;
+    
+    while(i<j)
+    {
+        sum += abs(a[i]-a[j]);
+        
+        if(f==0)
+        {
+           f=1;
+           i++;
+        }
+        else
+        {
+        f=0;
+        j--;
+        }
+        
+        
+    }
+    sum += abs(a[i]-a[0]);
+    return sum;
+}
+int main()
+{
+    int a[] = { 1, 2, 4, 8 };
+    int n = sizeof(a) / sizeof(a[0]);
+ 
+    cout << MaxSumDifference(a, n) << endl;
+}

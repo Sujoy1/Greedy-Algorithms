@@ -1,0 +1,82 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int live(int arr[][2001][4],int a,int h ,int org)
+{
+    if(a<=0||h<=0)
+    return 0;
+    else if(arr[a][h][org]!=-5)
+    return arr[a][h][org];
+    else
+    {
+    
+    int h1=h;
+     int a1=a;
+     
+     if(org==1)
+     {
+         
+         h -= 20;
+         a += 5;
+         
+     return arr[a1][h1][org]=1+max(live(arr,a,h,2),live(arr,a,h,3));
+         
+     }
+     else if(org ==2)
+     {
+         
+         h -= 5;
+         a -= 10;
+         return arr[a1][h1][org]=1+max(live(arr,a,h,1),live(arr,a,h,3));
+     }
+     else
+     {
+         h += 3;
+         a += 2;
+         return arr[a1][h1][org]=1+max(live(arr,a,h,2),live(arr,a,h,1));
+     }
+     
+    }
+}
+int main() {
+  	
+int t,a,h,air,water,fire;
+int arr[2001][2001][4];
+    
+    for(int i=0;i<=2000;i++)
+    {
+     for(int j=0;j<=2000;j++)
+    {
+        for(int k=0;k<4;k++)
+        {
+        if(i==0||j==0)
+        arr[i][j][k]=0;
+        else
+      arr[i][j][k]=-5;
+        }
+    }    
+    }
+cin>>t;
+
+while(t--)
+{
+    cin>>h>>a;
+    
+    
+    if(a==0||h==0)
+    cout<<0<<endl;
+    else
+    {
+    
+    
+    air = max(live(arr,a+2,h+3,1),live(arr,a+2,h+3,2));
+    water = max(live(arr,a-10,h-5,1),live(arr,a-10,h-5,3));
+    fire = max(live(arr,a+5,h-20,2),live(arr,a+5,h-20,3));
+    
+    cout<<max(air,max(fire,water))<<endl;
+    }
+    
+
+}
+
+}
